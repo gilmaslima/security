@@ -1,0 +1,20 @@
+Dec 13 22:19:54 ubuntu-s-1vcpu-1gb-nyc1-01 sshd[13563]: Received disconnect from 169.255.68.148 port 35928:11: Normal Shutdown, Thank you for playing [preauth]
+Dec 13 22:19:54 ubuntu-s-1vcpu-1gb-nyc1-01 sshd[13563]: Disconnected from invalid user git 169.255.68.148 port 35928 [preauth]
+Dec 13 22:20:35 ubuntu-s-1vcpu-1gb-nyc1-01 sshd[13565]: Invalid user minecraft from 169.255.68.148 port 42848
+Dec 13 22:20:35 ubuntu-s-1vcpu-1gb-nyc1-01 sshd[13565]: Received disconnect from 169.255.68.148 port 42848:11: Normal Shutdown, Thank you for playing [preauth]
+Dec 13 22:20:35 ubuntu-s-1vcpu-1gb-nyc1-01 sshd[13565]: Disconnected from invalid user minecraft 169.255.68.148 port 42848 [preauth]
+Dec 13 22:21:16 ubuntu-s-1vcpu-1gb-nyc1-01 sshd[13568]: Invalid user postgres from 169.255.68.148 port 49768
+Dec 13 22:21:16 ubuntu-s-1vcpu-1gb-nyc1-01 sshd[13568]: Received disconnect from 169.255.68.148 port 49768:11: Normal Shutdown, Thank you for playing [preauth]
+Dec 13 22:21:16 ubuntu-s-1vcpu-1gb-nyc1-01 sshd[13568]: Disconnected from invalid user postgres 169.255.68.148 port 49768 [preauth]
+Dec 13 23:08:19 ubuntu-s-1vcpu-1gb-nyc1-01 sshd[13577]: Accepted publickey for root from 187.37.190.114 port 38724 ssh2: RSA SHA256:il8oXKLd8WYP9wWUqxonKMehAyR3xLLYgzY6z0+c0sg
+Dec 13 23:08:19 ubuntu-s-1vcpu-1gb-nyc1-01 sshd[13577]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Dec 13 23:08:20 ubuntu-s-1vcpu-1gb-nyc1-01 systemd-logind[844]: New session 7249 of user root.
+Dec 13 23:09:24 ubuntu-s-1vcpu-1gb-nyc1-01 sshd[13701]: Invalid user nicoara from 113.31.117.79 port 45172
+Dec 13 23:09:24 ubuntu-s-1vcpu-1gb-nyc1-01 sshd[13701]: Received disconnect from 113.31.117.79 port 45172:11: Bye Bye [preauth]
+Dec 13 23:09:24 ubuntu-s-1vcpu-1gb-nyc1-01 sshd[13701]: Disconnected from invalid user nicoara 113.31.117.79 port 45172 [preauth]
+Dec 13 23:17:01 ubuntu-s-1vcpu-1gb-nyc1-01 CRON[13708]: pam_unix(cron:session): session opened for user root by (uid=0)
+Dec 13 23:17:01 ubuntu-s-1vcpu-1gb-nyc1-01 CRON[13708]: pam_unix(cron:session): session closed for user root
+Dec 13 23:17:27 ubuntu-s-1vcpu-1gb-nyc1-01 sshd[13711]: Connection closed by 103.218.170.102 port 40560 [preauth]
+Dec 13 23:21:10 ubuntu-s-1vcpu-1gb-nyc1-01 sshd[13753]: Invalid user itinfra from 150.158.159.248 port 54904
+Dec 13 23:21:10 ubuntu-s-1vcpu-1gb-nyc1-01 sshd[13753]: Received disconnect from 150.158.159.248 port 54904:11: Bye Bye [preauth]
+Dec 13 23:21:10 ubuntu-s-1vcpu-1gb-nyc1-01 sshd[13753]: Disconnected from invalid user itinfra 150.158.159.248 port 54904 [preauth]
