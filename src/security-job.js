@@ -25,7 +25,7 @@ async function init(){
     for (const key in ips) {
         const ip = ips[key]
         const command = `iptables -A INPUT -s ${ip} -j DROP`
-
+        console.log(command)
         exec(command, (error, stdout, stderr) => {
             if (error) {
                 console.log(`error: ${error.message}`);
