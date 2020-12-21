@@ -1,29 +1,30 @@
 const fs = require('fs')
 const moment = require('moment')
 const { exec } = require("child_process")
+var CronJob = require('cron').CronJob
 
-
-init().then().catch(e => {console.log(e)})
+var job = new CronJob('0 0 1 * * *', function() {
+    init().then().catch(e => {console.log(e)})
+  }, null, true, null)
+job.start();
 
 async function init(){
 
     const result = fs.readFileSync('/var/log/auth.log', 'utf-8')
-    //console.log(result)
+    
     const lines = result.split('\n')
     .filter(f => {
         const day = moment().format('DD')
-        //console.log(f.split(' ')[1].indexOf(`${day}`), day)
         return f.indexOf('Invalid') != -1 && f.split(' ')[1].indexOf(day) != -1 
     })
 
-    const ips = lines.map(l => {
-        return l.split(' ')[9]
+    const ips = new Set()
+
+    lines.forEach(l => {
+        ips.add(l.split(' ')[9])
     })
     
-    
-    console.log(ips)
-    for (const key in ips) {
-        const ip = ips[key]
+    ips.forEach(ip => {
         const command = `iptables -A INPUT -s ${ip} -j DROP`
         console.log(command)
         exec(command, (error, stdout, stderr) => {
@@ -36,7 +37,7 @@ async function init(){
                 return;
             }
             console.log(`stdout: ${stdout}`);
-        });
-    }
+        })
+    })
     
 }
