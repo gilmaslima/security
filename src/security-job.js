@@ -3,7 +3,7 @@ const moment = require('moment')
 const { exec } = require("child_process")
 var CronJob = require('cron').CronJob
 
-var job = new CronJob('0 * */1 * * *', function() {
+var job = new CronJob('0 0 */1 * * *', function() {
     console.log('Running...')
     init().then().catch(e => {console.log(e)})
   }, null, true, null)
