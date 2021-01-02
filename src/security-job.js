@@ -39,7 +39,7 @@ async function filterIps(savedIps){
         let ip = undefined
         
         tmp.forEach(t => {
-            if(t.split('.').length === 4){
+            if(t.split('.').length === 4 && !isNaN(t.split('.')[0])){
                 ip = t
             }
         })
@@ -85,4 +85,5 @@ async function init(){
 }
 
 
-init().then().catch(e => {console.log(e)})
+//init().then().catch(e => {console.log(e)})
+
