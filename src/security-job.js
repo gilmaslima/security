@@ -15,7 +15,7 @@ async function loadIptables(){
     const tmp = stdout.split('\n')
     tmp.forEach(f => {
         const ip = f.split('  ')[5]
-        console.log(ip)
+        //console.log(ip)
         if(ip && ip.length > 0){
             savedIps.add(ip)
         }
@@ -37,22 +37,20 @@ async function filterIps(savedIps){
     lines.forEach(l => {
         const tmp = l.split(' ') 
         let ip = undefined
-        for (let index = 0; tmp < tmp.length; index++) {
-            const element = tmp[index];
-            if(element.split('.').length === 4){
-                ip = element
-                break
+        
+        tmp.forEach(t => {
+            if(t.split('.').length === 4){
+                ip = t
             }
-
-        }
-
+        })
+        
         console.log('Filtred:', ip)
         if(ip && !savedIps.has(ip)){
             ips.add(ip)
         }
     })
     console.log(ips)
-    return ips.values()
+    return Array.from(ips)
 }
 
 async function addRule(ip){
@@ -77,13 +75,15 @@ async function addRule(ip){
 async function init(){
 
     const savedIps = await loadIptables()
-    console.log(savedIps)    
+    console.log('savedIps:', savedIps)    
     const ips = await filterIps(savedIps)
     
+    console.log('ips:', ips)
     for (const key in ips) {
         const ip = ips[key]
         await addRule(ip)
     }
 }
+
 
 init().then().catch(e => {console.log(e)})
