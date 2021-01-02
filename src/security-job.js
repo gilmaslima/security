@@ -55,21 +55,20 @@ async function filterIps(savedIps){
 
 async function addRule(ip){
     const command = `iptables -A INPUT -s ${ip} -j DROP`
-    /*
+    
     const { stdout, stderr } = await exec(command)
     if(stderr){
         console.log('Error:', stderr)
     } 
-    */
-   console.log('Exec:', command)   
+    
+    console.log('Exec:', command)   
 }
 
-// var job = new CronJob('0 0 */1 * * *', function() {
-// //var job = new CronJob('0 */1 * * * *', function() {
-//     console.log('Running...')
-//     init().then().catch(e => {console.log(e)})
-//   }, null, true, null)
-// job.start();
+var job = new CronJob('0 0 */1 * * *', function() {
+    console.log('Running...')
+    init().then().catch(e => {console.log(e)})
+  }, null, true, null)
+job.start();
 
 
 async function init(){
