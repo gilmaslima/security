@@ -40,7 +40,7 @@ async function filterIps(savedIps){
             ips.add(ip)
         }
     })
-
+    console.log(ips)
     return ips.values()
 }
 
@@ -52,12 +52,13 @@ async function addRule(ip){
     }    
 }
 
-var job = new CronJob('0 0 */1 * * *', function() {
-//var job = new CronJob('0 */1 * * * *', function() {
-    console.log('Running...')
-    init().then().catch(e => {console.log(e)})
-  }, null, true, null)
-job.start();
+// var job = new CronJob('0 0 */1 * * *', function() {
+// //var job = new CronJob('0 */1 * * * *', function() {
+//     console.log('Running...')
+//     init().then().catch(e => {console.log(e)})
+//   }, null, true, null)
+// job.start();
+
 
 async function init(){
 
