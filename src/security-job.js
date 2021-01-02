@@ -28,18 +28,26 @@ async function filterIps(savedIps){
     
     const lines = result.split('\n')
     .filter(f => {
-        const day = moment().format('DD')
-        console.log(day)
-        return f.indexOf('[preauth]') != -1 //&& f.split(' ')[1].indexOf(day) != -1 
+        return f.indexOf('[preauth]') != -1
     })
 
     const ips = new Set()
 
     console.log('length', lines.length)
     lines.forEach(l => {
-        const ip = l.split(' ')[9]
+        const tmp = l.split(' ') 
+        let ip = undefined
+        for (let index = 0; tmp < tmp.length; index++) {
+            const element = tmp[index];
+            if(element.split('.').length === 4){
+                ip = element
+                break
+            }
+
+        }
+
         console.log('Filtred:', ip)
-        if(!savedIps.has(ip)){
+        if(ip && !savedIps.has(ip)){
             ips.add(ip)
         }
     })
@@ -49,10 +57,13 @@ async function filterIps(savedIps){
 
 async function addRule(ip){
     const command = `iptables -A INPUT -s ${ip} -j DROP`
+    /*
     const { stdout, stderr } = await exec(command)
     if(stderr){
         console.log('Error:', stderr)
-    }    
+    } 
+    */
+   console.log('Exec:', command)   
 }
 
 // var job = new CronJob('0 0 */1 * * *', function() {
