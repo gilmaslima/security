@@ -34,6 +34,7 @@ async function filterIps(savedIps){
 
     const ips = new Set()
 
+    console.log('length', lines.length)
     lines.forEach(l => {
         const ip = l.split(' ')[9]
         console.log('Filtred:', ip)
