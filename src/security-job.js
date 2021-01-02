@@ -29,7 +29,7 @@ async function filterIps(savedIps){
     const lines = result.split('\n')
     .filter(f => {
         const day = moment().format('DD')
-        return f.indexOf('Invalid') != -1 && f.split(' ')[1].indexOf(day) != -1 
+        return f.indexOf('[preauth]') != -1 && f.split(' ')[1].indexOf(day) != -1 
     })
 
     const ips = new Set()
