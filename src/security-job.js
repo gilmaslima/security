@@ -71,3 +71,5 @@ async function init(){
         await addRule(ip)
     }
 }
+
+init().then().catch(e => {console.log(e)})
