@@ -15,7 +15,7 @@ async function loadIptables(){
     const tmp = stdout.split('\n')
     tmp.forEach(f => {
         const ip = f.split('  ')[5]
-        //console.log(ip)
+        console.log(ip)
         if(ip && ip.length > 0){
             savedIps.add(ip)
         }
@@ -36,6 +36,7 @@ async function filterIps(savedIps){
 
     lines.forEach(l => {
         const ip = l.split(' ')[9]
+        console.log('Filtred:', ip)
         if(!savedIps.has(ip)){
             ips.add(ip)
         }
