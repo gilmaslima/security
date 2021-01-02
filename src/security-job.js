@@ -1,16 +1,29 @@
 const fs = require('fs')
 const moment = require('moment')
-const { exec } = require("child_process")
 var CronJob = require('cron').CronJob
+const util = require('util')
+const exec = util.promisify(require('child_process').exec)
 
-var job = new CronJob('0 0 */1 * * *', function() {
-    console.log('Running...')
-    init().then().catch(e => {console.log(e)})
-  }, null, true, null)
-job.start();
+async function loadIptables(){
 
-async function init(){
+    const savedIps = new Set()
+    const command = `iptables -L | grep DROP`
+    const { stdout, stderr } = await exec(command)
+    if(stderr){
+        console.log('Error:', stderr)
+    }
+    const tmp = stdout.split('\n')
+    tmp.forEach(f => {
+        const ip = f.split('  ')[5]
+        //console.log(ip)
+        if(ip && ip.length > 0){
+            savedIps.add(ip)
+        }
+    })
+    return savedIps
+}
 
+async function filterIps(savedIps){
     const result = fs.readFileSync('/var/log/auth.log', 'utf-8')
     
     const lines = result.split('\n')
@@ -22,23 +35,38 @@ async function init(){
     const ips = new Set()
 
     lines.forEach(l => {
-        ips.add(l.split(' ')[9])
+        const ip = l.split(' ')[9]
+        if(!savedIps.has(ip)){
+            ips.add(ip)
+        }
     })
+
+    return ips.values()
+}
+
+async function addRule(ip){
+    const command = `iptables -A INPUT -s ${ip} -j DROP`
+    const { stdout, stderr } = await exec(command)
+    if(stderr){
+        console.log('Error:', stderr)
+    }    
+}
+
+var job = new CronJob('0 0 */1 * * *', function() {
+//var job = new CronJob('0 */1 * * * *', function() {
+    console.log('Running...')
+    init().then().catch(e => {console.log(e)})
+  }, null, true, null)
+job.start();
+
+async function init(){
+
+    const savedIps = await loadIptables()
+    console.log(savedIps)    
+    const ips = await filterIps(savedIps)
     
-    ips.forEach(ip => {
-        const command = `iptables -A INPUT -s ${ip} -j DROP`
-        console.log(command)
-        exec(command, (error, stdout, stderr) => {
-            if (error) {
-                console.log(`error: ${error.message}`);
-                return;
-            }
-            if (stderr) {
-                console.log(`stderr: ${stderr}`);
-                return;
-            }
-            console.log(`stdout: ${stdout}`);
-        })
-    })
-    
+    for (const key in ips) {
+        const ip = ips[key]
+        await addRule(ip)
+    }
 }
